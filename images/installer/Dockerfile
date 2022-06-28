@@ -22,8 +22,12 @@ RUN apk add -u \
 
 ARG TERRAFORM_VERSION=1.2.3
 ARG KUSTOMIZE_VERSION=3.5.3
+<<<<<<< HEAD
 ARG ISTIO_OPERATOR_VERSION=1.4.10
 ARG CNRM_VERSION=1.89.0
+=======
+ARG ISTIO_OPERATOR_VERSION=1.4.7
+>>>>>>> b49ce0c (Switch to using CNRM GKE addon and regional LB updates)
 
 # istoctl capable of detecting version 1.4+
 ENV ISTIO_COMPAT=1.14.1
@@ -50,10 +54,6 @@ COPY --from=gke-deploy /gke-deploy /usr/local/bin/
 
 # Install kubectl
 COPY --from=kubectl /builder/google-cloud-sdk/bin/kubectl /usr/local/bin/kubectl
-
-# Download cnrm installer
-RUN mkdir -p /opt/cnrm && cd /opt/cnrm && \
-    wget --timeout 2 --tries 5 -qO- https://storage.googleapis.com/cnrm/${CNRM_VERSION}/release-bundle.tar.gz | tar -zxvf - ./install-bundle-workload-identity/
 
 # Download the istio operator release
 #RUN mkdir -p /opt/istio-operator && cd /opt/istio-operator && \
