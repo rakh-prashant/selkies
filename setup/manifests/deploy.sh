@@ -66,7 +66,7 @@ gcloud container clusters get-credentials ${CLUSTER_NAME} --region=${CLUSTER_LOC
 
 # Install CRDs
 log_cyan "Installing CRDs"
-gke-deploy apply --project ${PROJECT_ID} --cluster ${CLUSTER_NAME} --location ${CLUSTER_LOCATION} --filename /opt/istio-operator/deploy/crds/istio_v1alpha2_istiocontrolplane_crd.yaml
+#gke-deploy apply --project ${PROJECT_ID} --cluster ${CLUSTER_NAME} --location ${CLUSTER_LOCATION} --filename /opt/istio-operator/deploy/crds/istio_v1alpha2_istiocontrolplane_crd.yaml
 gke-deploy apply --project ${PROJECT_ID} --cluster ${CLUSTER_NAME} --location ${CLUSTER_LOCATION} --filename base/pod-broker/crd.yaml
 
 # Install CNRM controller
@@ -107,6 +107,8 @@ ISTIO_LATEST_INSTALLER="./install_istio_${LATEST_ISTIO_MAJOR}.sh"
 case "$ISTIO_VERSION" in
     1.4*) log_cyan "Installing istio 1.4" && ./install_istio_1.4.sh ;;
     1.7*) log_cyan "Installing istio 1.7" && ./install_istio_1.7.sh ;;
+    1.14.1*) log_cyan "Installing istio 1.14.1" && ./install_istio_1.14.1.sh ;;
+
     * ) log_red "Unsupported istio version found: ${ISTIO_VERSION}, attempting latest installer." && ${ISTIO_LATEST_INSTALLER} ;;
 esac
 

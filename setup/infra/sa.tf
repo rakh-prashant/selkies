@@ -143,3 +143,4 @@ resource "google_project_iam_member" "user_pod_service_account-iap-user" {
   role    = "roles/iap.httpsResourceAccessor"
   member  = "serviceAccount:${google_service_account.user_pod_service_account.email}"
 }
+

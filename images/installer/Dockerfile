@@ -22,15 +22,15 @@ RUN apk add -u \
 
 ARG TERRAFORM_VERSION=1.2.3
 ARG KUSTOMIZE_VERSION=3.5.3
-ARG ISTIO_OPERATOR_VERSION=1.4.7
-ARG CNRM_VERSION=1.34.0
+ARG ISTIO_OPERATOR_VERSION=1.4.10
+ARG CNRM_VERSION=1.89.0
 
 # istoctl capable of detecting version 1.4+
-ENV ISTIO_COMPAT=1.7.3
+ENV ISTIO_COMPAT=1.14.1
 
 # istioctl and istio bundle to be installed if 1.4 not found.
-ENV LATEST_ISTIO=1.7.3
-ENV LATEST_ISTIO_MAJOR=1.7
+ENV LATEST_ISTIO=1.14.1
+ENV LATEST_ISTIO_MAJOR=1.14.1
 
 # Install terraform
 RUN wget --timeout 2 --tries 5 https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
@@ -56,8 +56,8 @@ RUN mkdir -p /opt/cnrm && cd /opt/cnrm && \
     wget --timeout 2 --tries 5 -qO- https://storage.googleapis.com/cnrm/${CNRM_VERSION}/release-bundle.tar.gz | tar -zxvf - ./install-bundle-workload-identity/
 
 # Download the istio operator release
-RUN mkdir -p /opt/istio-operator && cd /opt/istio-operator && \
-    wget --timeout 2 --tries 5 -qO- https://github.com/istio/operator/archive/${ISTIO_OPERATOR_VERSION}.tar.gz | tar --strip-components=1 -zxf - 
+#RUN mkdir -p /opt/istio-operator && cd /opt/istio-operator && \
+#    wget --timeout 2 --tries 5 -qO- https://github.com/istio/operator/archive/${ISTIO_OPERATOR_VERSION}.tar.gz | tar --strip-components=1 -zxf - 
 
 # Download compat istio release
 RUN mkdir -p /opt/istio-${ISTIO_COMPAT}/bin && cd /opt/istio-${ISTIO_COMPAT}/bin && \
