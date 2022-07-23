@@ -30,3 +30,5 @@ log_cyan "Installing Istio control plane..."
 ${ISTIOCTL} install -y
 kubectl label ns istio-system install.operator.istio.io/owner-kind=IstioControlPlane --overwrite=true
 log_cyan "Istio control plane is ready"
+kubectl annotate istio-ingressgateway cloud.google.com/neg='{"exposed_ports": {"80":{}}}' -n istio-system 
+kubectl annotate istio-ingressgateway anthos.cft.dev/autoneg='{"name":"istio-ingressgateway", "max_rate_per_endpoint":100}' -n istio-system 
